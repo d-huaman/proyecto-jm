@@ -1,0 +1,245 @@
+/* ==========================================================
+   proyecto-jm · style.css  (v2)
+   Tema oscuro sobrio (no negro puro), fondo con rejilla sutil,
+   paneles con encabezado y dos columnas en computadora.
+   ========================================================== */
+
+/* ---------- Colores y tipografías (cámbialos aquí) ---------- */
+:root {
+  --fondo:     #0f131a;  /* fondo de la página */
+  --tarjeta:   #151b25;  /* fondo de cada panel (úsalo también como fondo al exportar imágenes oscuras) */
+  --borde:     #242c3a;  /* líneas finas */
+  --borde-hov: #3a4559;  /* línea al pasar el mouse */
+  --texto:     #e4e8ee;  /* texto principal */
+  --texto-2:   #8f9aab;  /* texto secundario (etiquetas, pie) */
+  --foco:      #7aa2f7;  /* contorno al navegar con teclado */
+
+  --rejilla:   rgba(255, 255, 255, 0.045); /* líneas de la rejilla de fondo */
+  --celda:     48px;                       /* tamaño de cada cuadro de la rejilla */
+
+  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, "Courier New", monospace;
+
+  --ancho: 1400px;       /* ancho máximo del contenido */
+  color-scheme: dark;    /* barras de scroll oscuras */
+}
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background-color: var(--fondo);
+  /* Rejilla: dos juegos de líneas finas (horizontales y verticales) */
+  background-image:
+    linear-gradient(var(--rejilla) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rejilla) 1px, transparent 1px);
+  background-size: var(--celda) var(--celda);
+  background-position: top center;
+  color: var(--texto);
+  font-family: var(--sans);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+img, video { display: block; max-width: 100%; height: auto; }
+
+/* ---------- Contenedor común ---------- */
+.cabecera,
+main,
+.pie {
+  width: 100%;
+  max-width: var(--ancho);
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 4vw, 2rem);
+}
+
+/* ---------- Cabecera: título pequeño ---------- */
+.cabecera {
+  padding-block: 1.4rem 1.2rem;
+  border-bottom: 1px solid var(--borde);
+}
+
+.cabecera h1 {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--texto);
+}
+
+/* ---------- Secciones ---------- */
+main { padding-block: 2.25rem 3.5rem; }
+
+.seccion + .seccion { margin-top: 3.25rem; }
+
+/* Título de sección con una línea fina que se extiende a la derecha */
+.seccion h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin: 0 0 1.1rem;
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: var(--texto-2);
+}
+
+.seccion h2::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--borde);
+}
+
+/* Una columna en celular; dos en computadora (ver más abajo) */
+.rejilla {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+/* ---------- Paneles ---------- */
+.tarjeta {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  overflow: hidden;              /* recorta la imagen con las esquinas redondeadas */
+  background: var(--tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  transition: border-color 0.15s ease;
+}
+
+.tarjeta:hover { border-color: var(--borde-hov); }
+
+/* Encabezado del panel: el título va arriba (aunque en el HTML esté debajo) */
+.tarjeta figcaption {
+  order: -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.65rem 0.9rem;
+  border-bottom: 1px solid var(--borde);
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  color: var(--texto);
+}
+
+/* Botón "Ampliar" a la derecha (solo en los paneles con imagen).
+   Todo el encabezado es clicable: lo controla script.js */
+.tarjeta:has(.ampliar) figcaption { cursor: zoom-in; }
+
+.tarjeta:has(.ampliar) figcaption::after {
+  content: "Ampliar";
+  padding: 0.15rem 0.6rem;
+  font-size: 0.75rem;
+  color: var(--texto-2);
+  border: 1px solid var(--borde);
+  border-radius: 4px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.tarjeta:has(.ampliar) figcaption:hover::after {
+  color: var(--texto);
+  border-color: var(--borde-hov);
+}
+
+/* La imagen llega de borde a borde del panel */
+.tarjeta img,
+.tarjeta video {
+  width: 100%;
+  border-radius: 0;
+}
+
+/* El gráfico es casi cuadrado: se limita el ancho para que no quede enorme */
+.tarjeta-central {
+  width: 100%;
+  max-width: 860px;
+  margin-inline: auto;
+}
+
+/* ---------- Enlace que amplía la imagen ---------- */
+.ampliar { display: block; cursor: zoom-in; }
+
+.ampliar:focus-visible,
+.cerrar:focus-visible {
+  outline: 2px solid var(--foco);
+  outline-offset: 3px;
+}
+
+/* ---------- Visor (imagen ampliada) ---------- */
+#visor {
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 3.5rem 1rem 1.5rem;
+  border: 0;
+  background: transparent;
+  color: var(--texto);
+  overflow: auto;            /* permite desplazarse y hacer zoom con los dedos */
+}
+
+#visor[open] {
+  display: grid;
+  place-items: center;
+}
+
+#visor::backdrop { background: rgba(8, 10, 14, 0.94); }
+
+#visor img {
+  width: auto;
+  max-width: 100%;
+  max-height: calc(100dvh - 5rem);
+  border-radius: 3px;
+  cursor: zoom-out;
+}
+
+.cerrar {
+  position: fixed;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: grid;
+  place-items: center;
+  font: 1rem/1 var(--mono);
+  color: var(--texto);
+  background: var(--tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.cerrar:hover { border-color: var(--borde-hov); }
+
+/* ---------- Pie ---------- */
+.pie {
+  padding-block: 1.25rem 2.25rem;
+  border-top: 1px solid var(--borde);
+}
+
+.pie p {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--texto-2);
+}
+
+/* ---------- Dos columnas en computadora ---------- */
+@media (min-width: 1100px) {
+  .rejilla { grid-template-columns: 1fr 1fr; }
+}
+
+/* ---------- Movimiento reducido ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .tarjeta,
+  .tarjeta:has(.ampliar) figcaption::after { transition: none; }
+}
