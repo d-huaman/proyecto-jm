@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jesús María · Elecciones municipales 2026</title>
+  <meta name="description" content="Mapas y gráficos de los resultados de las elecciones municipales 2026 en Jesús María, Lima.">
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Favicon (opcional): descomenta cuando subas assets/img/favicon.png
+  <link rel="icon" href="assets/img/favicon.png"> -->
+
+  <!-- Tipografías: IBM Plex Sans (texto) e IBM Plex Mono (etiquetas) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <header class="cabecera">
+    <h1>Jesús María · Elecciones municipales 2026</h1>
+  </header>
+
+  <main>
+
+    <!-- MAPAS: en computadora van lado a lado (distrital a la izquierda); en celular, uno debajo del otro -->
+    <section class="seccion" aria-labelledby="t-mapas">
+      <h2 id="t-mapas">Mapas</h2>
+      <div class="rejilla">
+
+        <figure class="tarjeta">
+          <a class="ampliar" href="assets/img/mapa-distrital.png">
+            <img src="assets/img/mapa-distrital.png" width="1860" height="1320" loading="lazy"
+                 alt="Mapa de Jesús María con la organización ganadora por zona de local de votación, elección distrital">
+          </a>
+          <figcaption>Mapa distrital</figcaption>
+        </figure>
+
+        <figure class="tarjeta">
+          <a class="ampliar" href="assets/img/mapa-provincial.png">
+            <img src="assets/img/mapa-provincial.png" width="1860" height="1320" loading="lazy"
+                 alt="Mapa de Jesús María con la organización ganadora por zona de local de votación, elección provincial">
+          </a>
+          <figcaption>Mapa provincial</figcaption>
+        </figure>
+
+      </div>
+    </section>
+
+    <!-- GRÁFICO -->
+    <section class="seccion" aria-labelledby="t-grafico">
+      <h2 id="t-grafico">Gráfico</h2>
+      <figure class="tarjeta tarjeta-central">
+        <a class="ampliar" href="assets/img/grafico-margen-local.png">
+          <img src="assets/img/grafico-margen-local.png" width="2010" height="1770" loading="lazy"
+               alt="Gráfico del margen del ganador en cada local de votación de Jesús María">
+        </a>
+        <figcaption>Margen por local</figcaption>
+      </figure>
+    </section>
+
+    <!-- ANIMACIONES (bloque oculto). Para activarlo: sube los videos a assets/video/ y borra
+         las dos líneas marcadas "ocultar" (la de abajo y la que dice "fin de ocultar"). -->
+    <!-- ocultar
+    <section class="seccion" aria-labelledby="t-animaciones">
+      <h2 id="t-animaciones">Animaciones</h2>
+      <div class="rejilla">
+
+        <figure class="tarjeta">
+          <video src="assets/video/animacion-distrital.mp4" muted loop playsinline autoplay
+                 width="1280" height="720" aria-label="Animación del crecimiento del mapa distrital"></video>
+          <figcaption>Crecimiento del mapa distrital</figcaption>
+        </figure>
+
+        <figure class="tarjeta">
+          <video src="assets/video/animacion-provincial.mp4" muted loop playsinline autoplay
+                 width="1280" height="720" aria-label="Animación del crecimiento del mapa provincial"></video>
+          <figcaption>Crecimiento del mapa provincial</figcaption>
+        </figure>
+
+      </div>
+    </section>
+    fin de ocultar -->
+
+  </main>
+
+  <footer class="pie">
+    <p>Proyecto personal · Fuente de datos: ONPE</p>
+  </footer>
+
+  <!-- Visor para ampliar imágenes (lo controla script.js) -->
+  <dialog id="visor" aria-label="Imagen ampliada">
+    <button type="button" class="cerrar" aria-label="Cerrar">✕</button>
+    <img src="" alt="">
+  </dialog>
+
+</body>
+</html>
